@@ -1,0 +1,144 @@
+# Autoresearch Skill Effectiveness & Safety Test Suite
+# Tests the autoresearch SKILL.md + references + scripts for
+# accuracy, safety, robustness, and effectiveness.
+#
+# Format: +/-§relative_file_path§pattern§description
+# Uses § delimiter (pipe conflicts with regex alternation)
+
+# ============================================================
+# CORE LOOP — is the loop protocol complete and correct?
+# ============================================================
+
++§.claude/skills/autoresearch/SKILL.md§one change per iteration§LOOP: enforces single-change rule
++§.claude/skills/autoresearch/SKILL.md§run benchmark§LOOP: runs benchmark after each change
++§.claude/skills/autoresearch/SKILL.md§keep.*discard§LOOP: has keep/discard decision
++§.claude/skills/autoresearch/SKILL.md§git revert§LOOP: has rollback mechanism
++§.claude/skills/autoresearch/SKILL.md§append.*autoresearch\.jsonl§LOOP: logs results to jsonl
++§.claude/skills/autoresearch/SKILL.md§never stop§LOOP: runs autonomously without asking
++§.claude/skills/autoresearch/SKILL.md§METRIC name=value§LOOP: specifies metric output convention
++§.claude/skills/autoresearch/SKILL.md§read.*before.*write§LOOP: reads context before modifying
+
+# ============================================================
+# SETUP — can a new session be created correctly?
+# ============================================================
+
++§.claude/skills/autoresearch/SKILL.md§goal§SETUP: collects goal from user
++§.claude/skills/autoresearch/SKILL.md§metric.*track§SETUP: collects target metric
++§.claude/skills/autoresearch/SKILL.md§direction.*higher.*lower§SETUP: collects metric direction
++§.claude/skills/autoresearch/SKILL.md§scope.*files.*modified§SETUP: collects scope boundary
++§.claude/skills/autoresearch/SKILL.md§verify command§SETUP: collects benchmark command
++§.claude/skills/autoresearch/SKILL.md§baseline.*run 0§SETUP: records baseline as run 0
++§.claude/skills/autoresearch/SKILL.md§git checkout -b autoresearch§SETUP: creates dedicated branch
+
+# ============================================================
+# RESUME — can an interrupted session continue seamlessly?
+# ============================================================
+
++§.claude/skills/autoresearch/SKILL.md§resume§RESUME: has resume capability
++§.claude/skills/autoresearch/SKILL.md§autoresearch\.md.*autoresearch\.jsonl.*exist§RESUME: checks both files exist
++§.claude/skills/autoresearch/SKILL.md§continue from last run§RESUME: picks up from last run number
++§.claude/skills/autoresearch/SKILL.md§resuming autoresearch§RESUME: announces resume state
+
+# ============================================================
+# SAFETY — prevents dangerous operations
+# ============================================================
+
+# Should NOT use git add -A (stages secrets, .env, unrelated files)
+-§.claude/skills/autoresearch/references/experiment-loop.md§git add -A§SAFETY: no git add -A (could stage secrets)
+
+# Should scope file staging to declared scope
++§.claude/skills/autoresearch/references/experiment-loop.md§scope§SAFETY: respects declared scope
++§.claude/skills/autoresearch/references/experiment-loop.md§do not modify benchmark§SAFETY: benchmark scripts are read-only
++§.claude/skills/autoresearch/references/experiment-loop.md§do not.*install.*dependencies§SAFETY: no unauthorized deps
+
+# Guard mechanism prevents shipping broken code
++§.claude/skills/autoresearch/SKILL.md§guard§SAFETY: has guard check mechanism
++§.claude/skills/autoresearch/SKILL.md§guard fails.*revert§SAFETY: reverts on guard failure
++§.claude/skills/autoresearch/SKILL.md§rework attempt§SAFETY: allows rework before giving up
+
+# ============================================================
+# EXPERIMENT LOOP REFERENCE — detailed protocol
+# ============================================================
+
+# All steps present
++§.claude/skills/autoresearch/references/experiment-loop.md§1\. Plan§EXPLOOP: has Plan step
++§.claude/skills/autoresearch/references/experiment-loop.md§2\. Implement§EXPLOOP: has Implement step
++§.claude/skills/autoresearch/references/experiment-loop.md§3\. Commit§EXPLOOP: has Commit step
++§.claude/skills/autoresearch/references/experiment-loop.md§4\. Benchmark§EXPLOOP: has Benchmark step
++§.claude/skills/autoresearch/references/experiment-loop.md§5\. Guard Check§EXPLOOP: has Guard Check step
++§.claude/skills/autoresearch/references/experiment-loop.md§6\. Evaluate§EXPLOOP: has Evaluate step
++§.claude/skills/autoresearch/references/experiment-loop.md§7\. Log§EXPLOOP: has Log step
++§.claude/skills/autoresearch/references/experiment-loop.md§8\. Update Session§EXPLOOP: has Update Session step
++§.claude/skills/autoresearch/references/experiment-loop.md§9\. Progress Report§EXPLOOP: has Progress Report step
++§.claude/skills/autoresearch/references/experiment-loop.md§10\. Continue§EXPLOOP: has Continue step
+
+# Edge cases handled
++§.claude/skills/autoresearch/references/experiment-loop.md§stuck.*no improvement§EXPLOOP: handles stuck state
++§.claude/skills/autoresearch/references/experiment-loop.md§flaky.*benchmark§EXPLOOP: handles flaky benchmarks
++§.claude/skills/autoresearch/references/experiment-loop.md§out of scope§EXPLOOP: handles out-of-scope needs
++§.claude/skills/autoresearch/references/experiment-loop.md§large refactor§EXPLOOP: handles large refactors
++§.claude/skills/autoresearch/references/experiment-loop.md§timeout§EXPLOOP: handles timeouts
+
+# Simplicity rule (equal metric + simpler code = keep)
++§.claude/skills/autoresearch/references/experiment-loop.md§simplicity rule§EXPLOOP: has simplicity-is-keep rule
+
+# Constraint checking
++§.claude/skills/autoresearch/references/experiment-loop.md§constraint.*violated.*discard§EXPLOOP: constraint violation = discard
+
+# ============================================================
+# SESSION FILES REFERENCE — templates and schemas
+# ============================================================
+
+# Session template has required sections
++§.claude/skills/autoresearch/references/session-files.md§## Config§SESSFILES: template has Config section
++§.claude/skills/autoresearch/references/session-files.md§## Goal§SESSFILES: template has Goal section
++§.claude/skills/autoresearch/references/session-files.md§## Rules§SESSFILES: template has Rules section
++§.claude/skills/autoresearch/references/session-files.md§## Strategy§SESSFILES: template has Strategy section
++§.claude/skills/autoresearch/references/session-files.md§## Dead Ends§SESSFILES: template has Dead Ends section
++§.claude/skills/autoresearch/references/session-files.md§## Key Wins§SESSFILES: template has Key Wins section
+
+# Session template has stop conditions or iteration limit
++§.claude/skills/autoresearch/references/session-files.md§stop condition§SESSFILES: template has stop conditions
+
+# JSONL schema is well defined
+# Schema fields verified individually (JSON spans multiple lines)
++§.claude/skills/autoresearch/references/session-files.md§"run":§SESSFILES: jsonl schema has run field
++§.claude/skills/autoresearch/references/session-files.md§"commit":§SESSFILES: jsonl schema has commit field
++§.claude/skills/autoresearch/references/session-files.md§"status":§SESSFILES: jsonl schema has status field
++§.claude/skills/autoresearch/references/session-files.md§"description":§SESSFILES: jsonl schema has description field
++§.claude/skills/autoresearch/references/session-files.md§checks_failed§SESSFILES: documents checks_failed status
++§.claude/skills/autoresearch/references/session-files.md§append-only§SESSFILES: jsonl is append-only
+
+# Benchmark script requirements are clear
++§.claude/skills/autoresearch/references/session-files.md§exit 0 on success§SESSFILES: benchmark exit code convention
++§.claude/skills/autoresearch/references/session-files.md§METRIC name=value§SESSFILES: metric output convention
++§.claude/skills/autoresearch/references/session-files.md§reproducible§SESSFILES: benchmark must be reproducible
+
+# Multiple domain examples provided
++§.claude/skills/autoresearch/references/session-files.md§test coverage§SESSFILES: has test coverage example
++§.claude/skills/autoresearch/references/session-files.md§bundle size§SESSFILES: has bundle size example
+
+# ============================================================
+# SCRIPTS — helper scripts work correctly
+# ============================================================
+
+# confidence.sh has proper usage and math
++§.claude/skills/autoresearch/scripts/confidence.sh§median absolute deviation§SCRIPTS: uses MAD for confidence
++§.claude/skills/autoresearch/scripts/confidence.sh§2\.0.*likely real§SCRIPTS: documents confidence thresholds
++§.claude/skills/autoresearch/scripts/confidence.sh§need 3\+ runs§SCRIPTS: requires minimum runs
+
+# parse_metrics.sh handles the METRIC convention
++§.claude/skills/autoresearch/scripts/parse_metrics.sh§METRIC§SCRIPTS: parses METRIC lines
++§.claude/skills/autoresearch/scripts/parse_metrics.sh§numeric§SCRIPTS: handles numeric values
+
+# Scripts are portable (bash, no exotic deps undocumented)
++§.claude/skills/autoresearch/scripts/confidence.sh§python3§SCRIPTS-DEPS: confidence.sh uses python3
++§.claude/skills/autoresearch/SKILL.md§python3§SCRIPTS-DEPS: python3 dependency documented in SKILL.md
+
+# ============================================================
+# FINALIZATION — clean ending
+# ============================================================
+
++§.claude/skills/autoresearch/SKILL.md§finalization§FINAL: has finalization protocol
++§.claude/skills/autoresearch/SKILL.md§final summary§FINAL: prints final summary
++§.claude/skills/autoresearch/SKILL.md§merge branch§FINAL: suggests merge/cherry-pick
