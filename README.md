@@ -35,6 +35,7 @@ git clone https://github.com/thanh-dong/claude-routing-optimizer.git ~/.claude/c
 ln -s ~/.claude/claude-routing-optimizer/skills/optimize-routing ~/.claude/skills/optimize-routing
 ln -s ~/.claude/claude-routing-optimizer/commands/optimize-routing.md ~/.claude/commands/optimize-routing.md
 ln -s ~/.claude/claude-routing-optimizer/rules/routing-guardrails.md ~/.claude/rules/routing-guardrails.md
+ln -s ~/.claude/claude-routing-optimizer/rules/coding-discipline.md ~/.claude/rules/coding-discipline.md
 ```
 
 ## Usage
@@ -72,14 +73,25 @@ It does NOT contain:
 - Language/framework tables (skills auto-trigger from keywords)
 - Slash command lists (visible in `/help`)
 
-## Guardrails (always active)
+## Rules (always active)
 
-The `routing-guardrails.md` rule file loads every session and enforces:
+Two rule files load every session automatically (`alwaysApply: true`):
+
+### `routing-guardrails.md` — Tool Selection Quality
 - Single-match tasks skip CLAUDE.md (no overhead for unambiguous work)
 - Correct notation: `/cmd` for slash commands, `agent:name` for Agent tool spawns
 - Specific skills preferred over general ones
 - Effort matches scope (no 4-tool chains for trivial changes)
 - Model tier routing (Opus for architecture, Sonnet for implementation)
+
+### `coding-discipline.md` — Behavioral Quality
+Inspired by [Andrej Karpathy's CLAUDE.md](https://github.com/forrestchang/andrej-karpathy-skills). Reduces common LLM coding mistakes:
+- **Think before coding** — surface assumptions, ask when uncertain
+- **Simplicity first** — no speculative features, no unnecessary abstractions
+- **Surgical changes** — touch only what the request requires
+- **Goal-driven execution** — define success criteria, verify before declaring done
+
+The routing rules tell Claude *which tool* to use. The coding discipline tells Claude *how to behave* while using it. Both are needed.
 
 ## Example Output
 
@@ -90,9 +102,10 @@ See `example-output/CLAUDE.md` for a generated routing guide from a setup with E
 | Component | Tokens | Loaded |
 |-----------|--------|--------|
 | Generated CLAUDE.md | ~900 | Every session |
-| Guardrails rule | ~200 | Every session |
+| Routing guardrails rule | ~200 | Every session |
+| Coding discipline rule | ~250 | Every session |
 | Skill definition | ~1,500 | Only when `/optimize-routing` runs |
-| **Total ongoing cost** | **~1,100** | Per session |
+| **Total ongoing cost** | **~1,350** | Per session |
 
 Compare to a naive "list everything" CLAUDE.md: ~4,300+ tokens.
 

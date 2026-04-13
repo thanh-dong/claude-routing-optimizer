@@ -3,22 +3,22 @@ description: Quality guardrails for plugin and skill routing decisions
 alwaysApply: true
 ---
 
-# Routing Quality Guardrails
+# Routing Guardrails
 
-## Before invoking any skill or spawning any agent
+**Tradeoff:** These rules bias toward using the right tool. For trivial tasks, use judgment — a single direct action beats a 4-tool chain.
 
-1. **Single-match rule**: If only one installed skill/agent matches the task, use it directly. Do NOT consult CLAUDE.md — it exists only for overlap resolution.
+1. **Single-match = skip routing**: If only one skill/agent matches, use it directly. CLAUDE.md exists only for overlap resolution.
 
 2. **Notation discipline**:
-   - Slash commands (`/cmd`): typed in prompt, invoked via Skill tool
-   - Agent spawns (`agent:name`): delegated via Agent tool with `subagent_type`
-   - Auto-trigger skills: never invoke directly — they activate from context keywords
-   - NEVER mix these — spawning an agent as a slash command or invoking a skill as an agent will fail silently
+   - `/cmd` = slash command (Skill tool)
+   - `agent:name` = spawn via Agent tool with `subagent_type`
+   - *auto-trigger* = activates from context, never invoked directly
+   - Mixing these fails silently.
 
-3. **Verify before recommending**: If you're about to suggest a specific `/command` to the user, confirm it exists in the available skills list. Do not guess command names.
+3. **Verify before recommending**: Confirm a `/command` exists in the skills list before suggesting it. Do not guess names.
 
-4. **Prefer specific over general**: When both a language-specific skill (e.g., `ecc:go-reviewer`) and a general skill (e.g., `ecc:code-review`) match, prefer the specific one.
+4. **Specific over general**: `ecc:go-reviewer` wins over `ecc:code-review` for Go code. Always prefer the language/framework-specific variant.
 
-5. **Scope-match the effort**: Small task = single tool. Don't chain 4 tools for a 5-line change. The CLAUDE.md workflow chains are for substantial work only.
+5. **Scope-match effort**: 5-line change = one tool. Workflow chains are for substantial work only.
 
-6. **Agent model selection**: Architecture and planning tasks -> Opus agents. Implementation and review -> Sonnet agents. Never use Opus for mechanical tasks.
+6. **Model routing**: Architecture/planning -> Opus. Implementation/review -> Sonnet. Mechanical tasks -> never Opus.
