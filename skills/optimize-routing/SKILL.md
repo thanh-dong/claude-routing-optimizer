@@ -69,6 +69,8 @@ Group capabilities by **task domain** and identify where multiple plugins compet
 - Planning (ECC /plan vs gstack /autoplan vs any plan-related skills)
 - Research (ECC deep-research vs ECC exa-search vs any research skills)
 
+These are common domains. If the user's plugins overlap in additional domains not listed above, detect and include those as well.
+
 **Detection rules:**
 - Two or more plugins provide skills/agents for the same task domain = OVERLAP
 - A single plugin owns a domain exclusively = NO OVERLAP (skip in CLAUDE.md)
@@ -76,7 +78,12 @@ Group capabilities by **task domain** and identify where multiple plugins compet
 
 ### Phase 3: Generate CLAUDE.md
 
-Write `~/.claude/CLAUDE.md` with this exact structure:
+First, read the existing CLAUDE.md if present (for comparison in Phase 5):
+```bash
+cat ~/.claude/CLAUDE.md 2>/dev/null
+```
+
+Then write `~/.claude/CLAUDE.md` with this exact structure:
 
 ```markdown
 # Plugin Routing Guide

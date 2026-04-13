@@ -1,0 +1,126 @@
+# SKILL.md Effectiveness Test Suite
+# Tests whether SKILL.md instructions are specific enough for Claude to
+# produce correct output on any machine.
+#
+# Format: +/-§relative_file_path§pattern§description
+# + = pattern MUST match (effective instruction present)
+# - = pattern must NOT match (ineffective pattern absent)
+# NOTE: uses § as delimiter (pipe conflicts with regex alternation)
+
+# ============================================================
+# PHASE 1 — Inventory: are scanning instructions concrete?
+# ============================================================
+
++§skills/optimize-routing/SKILL.md§cat.*installed_plugins\.json§P1: reads installed plugins with concrete command
++§skills/optimize-routing/SKILL.md§grep.*enabledPlugins§P1: reads enabled state with concrete command
++§skills/optimize-routing/SKILL.md§find.*plugin\.json§P1: finds plugin manifests with concrete command
++§skills/optimize-routing/SKILL.md§ls.*skills§P1: lists skills with concrete command
++§skills/optimize-routing/SKILL.md§ls.*commands§P1: lists commands with concrete command
+
+# Step 6 (agent listing) must have a real instruction, not a comment stub
++§skills/optimize-routing/SKILL.md§list.*agent§P1-S6: agent inventory has concrete instruction
+
+# Step 7 (skill descriptions) should read frontmatter robustly
++§skills/optimize-routing/SKILL.md§description.*field§P1-S7: reads description field from frontmatter
+
+# Handles missing files gracefully
++§skills/optimize-routing/SKILL.md§2>/dev/null§P1: suppresses errors for missing paths
+
+# ============================================================
+# PHASE 2 — Overlap Detection: methodology, not just a list
+# ============================================================
+
+# Must instruct dynamic grouping
++§skills/optimize-routing/SKILL.md§group.*by.*task domain§P2: instructs grouping by domain
++§skills/optimize-routing/SKILL.md§two.*or.*more.*plugins.*overlap§P2: defines overlap threshold
++§skills/optimize-routing/SKILL.md§single.*plugin.*own§P2: defines single-owner skip rule
+
+# Must cover the major overlap domains
++§skills/optimize-routing/SKILL.md§code review§P2: covers code review domain
++§skills/optimize-routing/SKILL.md§testing§P2: covers testing domain
++§skills/optimize-routing/SKILL.md§debugging§P2: covers debugging domain
++§skills/optimize-routing/SKILL.md§frontend design§P2: covers frontend design domain
++§skills/optimize-routing/SKILL.md§security§P2: covers security domain
++§skills/optimize-routing/SKILL.md§architecture§P2: covers architecture domain
++§skills/optimize-routing/SKILL.md§refactoring§P2: covers refactoring domain
++§skills/optimize-routing/SKILL.md§performance§P2: covers performance domain
++§skills/optimize-routing/SKILL.md§deploy§P2: covers deployment domain
++§skills/optimize-routing/SKILL.md§documentation§P2: covers documentation domain
+
+# Should handle discovery of domains beyond the hardcoded list
++§skills/optimize-routing/SKILL.md§additional.*domain§P2: acknowledges domains beyond the listed ones
+
+# Auto-trigger skills should be excluded from CLAUDE.md
++§skills/optimize-routing/SKILL.md§auto.trigger.*reliably§P2: excludes auto-triggering skills
+
+# ============================================================
+# PHASE 3 — Generate: template produces valid output
+# ============================================================
+
+# Template has all required sections
++§skills/optimize-routing/SKILL.md§# Plugin Routing Guide§P3: template has correct title
++§skills/optimize-routing/SKILL.md§Overlap Resolution§P3: template has Overlap Resolution section
++§skills/optimize-routing/SKILL.md§## Workflows§P3: template has Workflows section
++§skills/optimize-routing/SKILL.md§## Parallel§P3: template has Parallel Agents section
+
+# Template includes the "only for overlaps" disclaimer
++§skills/optimize-routing/SKILL.md§only applies when.*multiple§P3: template has overlap-only disclaimer
+
+# Notation legend is part of the template
++§skills/optimize-routing/SKILL.md§/cmd.*slash command§P3: template has notation legend
+
+# Budget targets are explicit
++§skills/optimize-routing/SKILL.md§under.*80 lines§P3: explicit line budget
++§skills/optimize-routing/SKILL.md§under.*1000 tokens§P3: explicit token budget
+
+# Conditional routing format instructed
++§skills/optimize-routing/SKILL.md§conditional.*routing§P3: instructs conditional routing format
+
+# Anti-duplication rules
++§skills/optimize-routing/SKILL.md§NEVER.*list.*skills.*no overlap§P3: forbids listing non-overlapping skills
++§skills/optimize-routing/SKILL.md§NEVER.*duplicate.*description§P3: forbids duplicating descriptions
++§skills/optimize-routing/SKILL.md§NEVER.*language.*framework.*table§P3: forbids language/framework tables
+
+# Correct notation enforcement
++§skills/optimize-routing/SKILL.md§/cmd.*slash command.*agent:name.*Agent tool§P3: enforces notation in template
+
+# ============================================================
+# PHASE 4 — Verify: catches problems before they ship
+# ============================================================
+
+# Must verify command and agent existence
++§skills/optimize-routing/SKILL.md§check.*command.*exist§P4: verifies commands exist
++§skills/optimize-routing/SKILL.md§check.*agent.*exist§P4: verifies agents exist
+
+# Must check budgets
++§skills/optimize-routing/SKILL.md§divide by 4§P4: estimates tokens via byte/4
++§skills/optimize-routing/SKILL.md§wc -l§P4: checks line count
+
+# Must have remediation if over budget
++§skills/optimize-routing/SKILL.md§over budget.*cut§P4: has remediation for over-budget
+
+# ============================================================
+# PHASE 5 — Report: useful summary for the user
+# ============================================================
+
++§skills/optimize-routing/SKILL.md§plugins scanned§P5: reports plugins scanned
++§skills/optimize-routing/SKILL.md§skills cataloged§P5: reports skills cataloged
++§skills/optimize-routing/SKILL.md§overlaps detected§P5: reports overlaps detected
++§skills/optimize-routing/SKILL.md§token cost§P5: reports token cost
++§skills/optimize-routing/SKILL.md§changes from previous§P5: reports changes from previous
+
+# ============================================================
+# CROSS-PHASE — coherence between phases
+# ============================================================
+
+# Phase 3 should read old CLAUDE.md before overwriting (for diff in Phase 5)
++§skills/optimize-routing/SKILL.md§read.*existing.*CLAUDE§CROSS: reads previous CLAUDE.md before overwriting
+
+# Early exit if no overlaps detected
++§skills/optimize-routing/SKILL.md§no overlap.*skip§CROSS: early exit when nothing to route
+
+# Forward-compatible: notes about disabled plugins
++§skills/optimize-routing/SKILL.md§forward.compatible§CROSS: handles disabled plugins for forward compat
+
+# Workflow chains should end at natural stopping points
++§skills/optimize-routing/SKILL.md§workflow.*completion§CROSS: workflows chain to completion
