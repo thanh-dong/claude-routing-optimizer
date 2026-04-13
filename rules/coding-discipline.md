@@ -19,6 +19,7 @@ alwaysApply: true
 - No "flexibility" or "configurability" that wasn't requested.
 - No error handling for impossible scenarios.
 - If you write 200 lines and it could be 50, rewrite it.
+- Self-check: "Would a senior engineer say this is overcomplicated?" If yes, simplify.
 
 ## 3. Surgical Changes
 
@@ -27,7 +28,10 @@ When editing existing code:
 - Don't refactor things that aren't broken.
 - Match existing style, even if you'd do it differently.
 - If you notice unrelated issues, mention them — don't fix them.
-- Remove only imports/variables/functions that YOUR changes made unused.
+
+When your changes create orphans:
+- Remove imports/variables/functions that YOUR changes made unused.
+- Don't remove pre-existing dead code unless asked.
 
 The test: every changed line should trace directly to the user's request.
 
@@ -38,5 +42,9 @@ Transform tasks into verifiable goals before starting:
 - "Fix the bug" -> write a test that reproduces it, then make it pass
 - "Refactor X" -> ensure tests pass before and after
 
-For multi-step tasks, state a brief plan with verification at each step.
+For multi-step tasks, state a brief plan:
+```
+1. [Step] -> verify: [check]
+2. [Step] -> verify: [check]
+```
 Loop until verified — don't declare success without evidence.
