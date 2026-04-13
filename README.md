@@ -101,13 +101,23 @@ See `example-output/CLAUDE.md` for a generated routing guide from a setup with E
 
 | Component | Tokens | Loaded |
 |-----------|--------|--------|
-| Generated CLAUDE.md | ~900 | Every session |
+| Generated CLAUDE.md | ~740 | Every session |
 | Routing guardrails rule | ~200 | Every session |
 | Coding discipline rule | ~250 | Every session |
 | Skill definition | ~1,500 | Only when `/optimize-routing` runs |
-| **Total ongoing cost** | **~1,350** | Per session |
+| **Total ongoing cost** | **~1,190** | Per session |
 
 Compare to a naive "list everything" CLAUDE.md: ~4,300+ tokens.
+
+## Autoresearch
+
+The project includes an autoresearch harness for iteratively improving routing accuracy:
+
+```bash
+bash autoresearch.sh    # Run routing accuracy benchmark
+```
+
+This checks 45 assertions (positive and negative routing decisions) against the generated CLAUDE.md and reports accuracy, token count, and line count. See `autoresearch.md` for session config and `autoresearch.jsonl` for run history.
 
 ## License
 

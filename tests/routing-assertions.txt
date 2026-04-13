@@ -1,0 +1,82 @@
+# Routing Accuracy Test Suite
+# Format: +|-|pattern|description
+# + = pattern MUST match somewhere in CLAUDE.md (correct routing present)
+# - = pattern must NOT match (incorrect routing absent)
+# Patterns are extended grep (grep -iE)
+
+# === CODE REVIEW ===
+# Small PRs should go to lightweight review, not full chain
++|small.*PR.*->.*/review|Small PR routes to /review
++|blast.*radius.*->.*gitnexus-pr-review|Blast radius routes to gitnexus-pr-review
++|language.*specific.*->.*ecc:.*reviewer|Lang-specific idioms route to ecc reviewer
++|important.*PR.*->.*chain|Important PR triggers review chain
+# The chain should include gitnexus AND lang reviewer AND /review
++|gitnexus.*reviewer.*review|Important PR chain includes all 3 stages
+# Small PR should NOT trigger chain
+-|small.*PR.*chain|Small PR should not trigger chain
+
+# === FRONTEND DESIGN ===
++|design system.*->.*ui-ux-pro-max|Design system generation routes to ui-ux-pro-max
++|production UI.*->.*impeccable.*frontend|Production UI build routes to impeccable
++|polish.*->.*impeccable.*polish|Polish routes to impeccable:polish
++|visual QA.*->.*design-review|Visual QA routes to design-review
++|artifacts.*->.*document-skills|Standalone artifacts route to document-skills
+
+# === TESTING ===
++|TDD.*->.*ecc:tdd|TDD workflow routes to ecc:tdd
++|language.*test.*->.*ecc:.*test|Lang-specific tests route to ecc:{lang}-test
++|visual.*QA.*->.*qa\b|Visual QA routes to /qa
++|E2E.*->.*ecc:e2e|E2E regression routes to ecc:e2e
+# In the Testing section, TDD should NOT route to /qa (different concern)
+# (workflow chains like tdd -> qa are fine — that's sequential, not routing)
+-|TDD\).*->.*\/qa\b|TDD definition should not route to /qa
+
+# === DEBUGGING ===
++|compile.*error.*->.*ecc:.*build|Compile error routes to ecc build resolver
++|trace.*->.*gitnexus-debugging|Trace flow routes to gitnexus-debugging
++|runtime.*->.*investigate|Runtime repro routes to /investigate
++|unknown.*->.*gitnexus-debugging.*first|Unknown cause starts with gitnexus-debugging
+
+# === ARCHITECTURE ===
++|C4.*->.*c3|C4 docs route to /c3
++|system design.*->.*ecc:architect|System design routes to ecc:architect
++|implementation plan.*->.*ecc:plan|Implementation plan routes to ecc:plan
++|plan review.*->.*autoplan|Plan review routes to /autoplan
+
+# === SECURITY ===
++|OWASP.*->.*security-reviewer|Code-level security routes to ecc:security-reviewer
++|infrastructure.*->.*cso|Infrastructure audit routes to /cso
++|critical.*->.*both|Critical systems layer both security tools
+
+# === REFACTORING ===
++|rename.*->.*gitnexus-refactoring|Rename/move routes to gitnexus-refactoring
++|impact.*->.*gitnexus-impact|Impact analysis routes to gitnexus-impact-analysis
++|dead code.*->.*refactor-cleaner|Dead code cleanup routes to ecc:refactor-cleaner
+
+# === PERFORMANCE ===
++|optimization.*->.*performance-optimizer|Code optimization routes to performance-optimizer
++|regression.*benchmark.*->.*benchmark|Regression benchmarks route to /benchmark
+
+# === SHIPPING ===
++|release.*->.*ship|Release routes to /ship
++|deploy.*->.*land-and-deploy|Deploy routes to /land-and-deploy
++|monitoring.*->.*canary|Post-deploy monitoring routes to /canary
+
+# === WORKFLOWS ===
++|new feature.*backend.*ecc:plan|Backend feature workflow starts with plan
++|new feature.*UI.*->.*ui-ux-pro-max|UI feature workflow includes design system
++|bug fix.*compile.*ecc:.*build|Compile bug fix routes to build resolver
++|bug fix.*runtime.*gitnexus-debugging|Runtime bug fix starts with gitnexus-debugging
+
+# === PARALLEL AGENTS ===
++|code-reviewer.*security-reviewer.*performance-optimizer|Comprehensive review spawns 3 agents in parallel
++|architect.*opus|Architecture uses Opus-tier model
+
+# === STRUCTURAL RULES ===
+# Must have the "only for overlaps" disclaimer
++|only applies when.*multiple|CLAUDE.md states it's only for overlaps
+# Must have notation legend
++|/cmd.*slash command|Notation legend present
+# Must NOT list single-owner skills (wasteful)
+-|ecc:docs-lookup|Should not list non-overlapping skills
+-|ecc:save-session|Should not list non-overlapping skills
