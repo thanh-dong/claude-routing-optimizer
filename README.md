@@ -10,7 +10,7 @@ A naive solution (listing every skill in CLAUDE.md) wastes thousands of tokens p
 
 ## Solution
 
-This optimizer generates a **lean CLAUDE.md** (~900 tokens) that contains **only overlap resolution rules** — the one thing the skill system can't do on its own. It complements rather than duplicates.
+This optimizer generates a **lean CLAUDE.md** (~740 tokens) that contains **only overlap resolution rules** — the one thing the skill system can't do on its own. It complements rather than duplicates.
 
 ## Installation
 
@@ -26,6 +26,7 @@ cp commands/optimize-routing.md ~/.claude/commands/optimize-routing.md
 
 # Rules (always-on quality guardrails)
 cp rules/routing-guardrails.md ~/.claude/rules/routing-guardrails.md
+cp rules/coding-discipline.md ~/.claude/rules/coding-discipline.md
 ```
 
 Or clone and symlink:

@@ -1,0 +1,128 @@
+# Quality & Portability Test Suite
+# Format: +|-|relative_file_path|pattern|description
+# + = pattern MUST match in file (quality signal present)
+# - = pattern must NOT match (anti-pattern absent)
+# Patterns are extended grep (grep -iE), case-insensitive
+
+# ============================================================
+# PORTABILITY — works on any machine, any plugin combination
+# ============================================================
+
+# No hardcoded user-specific paths
+-|skills/optimize-routing/SKILL.md|/Users/\w+|SKILL: no hardcoded user paths
+-|commands/optimize-routing.md|/Users/\w+|CMD: no hardcoded user paths
+-|rules/routing-guardrails.md|/Users/\w+|RULES-routing: no hardcoded user paths
+-|rules/coding-discipline.md|/Users/\w+|RULES-coding: no hardcoded user paths
+
+# Skill should instruct dynamic discovery, not only list specific plugins
++|skills/optimize-routing/SKILL.md|for each.*plugin|SKILL: iterates plugins dynamically
++|skills/optimize-routing/SKILL.md|find.*plugin|SKILL: uses find for plugin discovery
+
+# Rules are plugin-agnostic (work without any specific plugin)
+-|rules/routing-guardrails.md|ECC|RULES-routing: no ECC-specific references
+-|rules/coding-discipline.md|gstack|RULES-coding: no gstack-specific references
+
+# ============================================================
+# COMPLETENESS — all phases, all files, all install steps
+# ============================================================
+
+# SKILL.md has all 5 phases
++|skills/optimize-routing/SKILL.md|Phase 1.*Inventory|SKILL: has Phase 1 Inventory
++|skills/optimize-routing/SKILL.md|Phase 2.*Overlap|SKILL: has Phase 2 Overlap Detection
++|skills/optimize-routing/SKILL.md|Phase 3.*Generate|SKILL: has Phase 3 Generate
++|skills/optimize-routing/SKILL.md|Phase 4.*Verify|SKILL: has Phase 4 Verify
++|skills/optimize-routing/SKILL.md|Phase 5.*Report|SKILL: has Phase 5 Report
++|skills/optimize-routing/SKILL.md|Quality Rules|SKILL: has Quality Rules section
+
+# SKILL.md Phase 1 has concrete commands (not just descriptions)
++|skills/optimize-routing/SKILL.md|installed_plugins|SKILL: reads installed plugins list
++|skills/optimize-routing/SKILL.md|settings.json|SKILL: reads settings for enabled state
++|skills/optimize-routing/SKILL.md|ls ~/\.claude/skills|SKILL: catalogs local skills
++|skills/optimize-routing/SKILL.md|ls ~/\.claude/commands|SKILL: catalogs local commands
+
+# Phase 4 has concrete verification steps
++|skills/optimize-routing/SKILL.md|check.*command.*exist|SKILL: verifies commands exist
++|skills/optimize-routing/SKILL.md|wc -[cl]|SKILL: checks token/line budget
+
+# Command has required structure
++|commands/optimize-routing.md|description:|CMD: has description frontmatter
++|commands/optimize-routing.md|\$ARGUMENTS|CMD: supports arguments
++|commands/optimize-routing.md|SKILL\.md|CMD: references skill file
+
+# README has essential sections
++|README.md|## Installation|README: has Installation section
++|README.md|## Usage|README: has Usage section
++|README.md|## License|README: has License section
+
+# README install covers ALL files (both copy and symlink methods)
++|README.md|cp.*routing-guardrails|README: copy install includes routing-guardrails
++|README.md|cp.*coding-discipline|README: copy install includes coding-discipline
++|README.md|cp.*SKILL\.md|README: copy install includes SKILL.md
++|README.md|cp.*optimize-routing\.md|README: copy install includes command
+
+# ============================================================
+# CLARITY — unambiguous, Claude can follow without guessing
+# ============================================================
+
+# SKILL.md uses conditional routing format (not declarative)
++|skills/optimize-routing/SKILL.md|if.*then|SKILL: uses conditional format
++|skills/optimize-routing/SKILL.md|condition.*->|SKILL: shows condition->tool pattern
+
+# Token and line budgets are explicit numbers
++|skills/optimize-routing/SKILL.md|<.*1000 tokens|SKILL: explicit token budget
++|skills/optimize-routing/SKILL.md|<.*80 lines|SKILL: explicit line budget
+
+# Rules have actionable instructions (do/don't patterns)
++|rules/routing-guardrails.md|single.match.*skip|RULES: clear skip-routing rule
++|rules/routing-guardrails.md|specific over general|RULES: clear specificity rule
++|rules/coding-discipline.md|simplicity first|RULES-coding: clear simplicity rule
++|rules/coding-discipline.md|surgical changes|RULES-coding: clear surgical-changes rule
+
+# Command documents all options
++|commands/optimize-routing.md|dry-run|CMD: documents --dry-run
++|commands/optimize-routing.md|verbose|CMD: documents --verbose
++|commands/optimize-routing.md|force|CMD: documents --force
+
+# ============================================================
+# ROBUSTNESS — handles edge cases gracefully
+# ============================================================
+
+# SKILL.md handles 0 or few plugins
++|skills/optimize-routing/SKILL.md|no overlap|SKILL: handles no-overlap case
++|skills/optimize-routing/SKILL.md|single.*plugin.*own|SKILL: handles single-owner domains
+
+# SKILL.md handles missing files
++|skills/optimize-routing/SKILL.md|2>/dev/null|SKILL: suppresses errors for missing paths
+
+# Phase 3 generate has template structure
++|skills/optimize-routing/SKILL.md|Overlap Resolution|SKILL: template has Overlap Resolution
++|skills/optimize-routing/SKILL.md|Workflows|SKILL: template has Workflows section
++|skills/optimize-routing/SKILL.md|Parallel|SKILL: template has Parallel Agents section
+
+# SKILL handles disabled plugins
++|skills/optimize-routing/SKILL.md|disabled|SKILL: mentions disabled plugin handling
+
+# Rules have alwaysApply (load every session)
++|rules/routing-guardrails.md|alwaysApply.*true|RULES-routing: loads every session
++|rules/coding-discipline.md|alwaysApply.*true|RULES-coding: loads every session
+
+# ============================================================
+# CONSISTENCY — claims match reality
+# ============================================================
+
+# README token claims should match actual measurements
++|README.md|~740|README: CLAUDE.md token claim matches measured value
++|README.md|~1,190|README: total cost claim matches sum
+
+# README does NOT contain stale claims
+-|README.md|~900 tokens\)|README: no stale ~900 token claim in Solution section
+
+# Skill and command names match between files
++|README.md|/optimize-routing|README: references correct command name
++|commands/optimize-routing.md|optimize-routing|CMD: filename matches command name
+
+# Phase 4 runs BEFORE file is finalized (verify-then-write)
++|skills/optimize-routing/SKILL.md|after writing|SKILL: verification happens (after writing or verify step exists)
+
+# SKILL Phase 1 step 6 (agent listing) has a concrete command
++|skills/optimize-routing/SKILL.md|agent.*director|SKILL: agent inventory has instructions

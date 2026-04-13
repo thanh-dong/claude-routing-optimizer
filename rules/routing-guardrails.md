@@ -17,7 +17,7 @@ alwaysApply: true
 
 3. **Verify before recommending**: Confirm a `/command` exists in the skills list before suggesting it. Do not guess names.
 
-4. **Specific over general**: `ecc:go-reviewer` wins over `ecc:code-review` for Go code. Always prefer the language/framework-specific variant.
+4. **Specific over general**: A language-specific reviewer wins over a generic code-review skill. Always prefer the language/framework-specific variant.
 
 5. **Scope-match effort**: 5-line change = one tool. Workflow chains are for substantial work only.
 
