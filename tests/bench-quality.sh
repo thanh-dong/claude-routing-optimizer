@@ -5,8 +5,9 @@ set -uo pipefail
 # Checks quality assertions against project files
 # Compatible with bash 3.2+ (macOS default)
 
-PROJECT_DIR="${PROJECT_DIR:-$(pwd)}"
-ASSERTIONS="tests/quality-assertions.txt"
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+PROJECT_DIR="${PROJECT_DIR:-$(dirname "$SCRIPT_DIR")}"
+ASSERTIONS="$SCRIPT_DIR/quality-assertions.txt"
 
 PASS=0
 FAIL=0

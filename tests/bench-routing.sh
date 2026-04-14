@@ -5,7 +5,8 @@ set -uo pipefail
 # Checks routing assertions against ~/.claude/CLAUDE.md
 
 CLAUDE_MD="${CLAUDE_MD:-$HOME/.claude/CLAUDE.md}"
-ASSERTIONS="tests/routing-assertions.txt"
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+ASSERTIONS="$SCRIPT_DIR/routing-assertions.txt"
 PASS=0
 FAIL=0
 TOTAL=0

@@ -5,8 +5,9 @@ set -uo pipefail
 # Uses § as field delimiter (pipe conflicts with regex alternation)
 # Compatible with bash 3.2+ (macOS)
 
-PROJECT_DIR="${PROJECT_DIR:-$(pwd)}"
-ASSERTIONS="tests/skill-effectiveness-assertions.txt"
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+PROJECT_DIR="${PROJECT_DIR:-$(dirname "$SCRIPT_DIR")}"
+ASSERTIONS="$SCRIPT_DIR/skill-effectiveness-assertions.txt"
 
 PASS=0
 FAIL=0

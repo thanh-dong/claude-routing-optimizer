@@ -110,15 +110,17 @@ See `example-output/CLAUDE.md` for a generated routing guide from a setup with E
 
 Compare to a naive "list everything" CLAUDE.md: ~4,300+ tokens.
 
-## Autoresearch
+## Tests
 
-The project includes an autoresearch harness for iteratively improving routing accuracy:
+Three benchmark scripts verify the project works correctly:
 
 ```bash
-bash autoresearch.sh    # Run routing accuracy benchmark
+bash tests/bench-routing.sh   # 45 assertions — routing accuracy + token count
+bash tests/bench-quality.sh   # 57 assertions — portability, completeness, clarity
+bash tests/bench-skill.sh     # 50 assertions — SKILL.md effectiveness per phase
 ```
 
-This checks 45 assertions (positive and negative routing decisions) against the generated CLAUDE.md and reports accuracy, token count, and line count. See `autoresearch.md` for session config and `autoresearch.jsonl` for run history.
+Run after any change to ensure nothing regressed.
 
 ## License
 
