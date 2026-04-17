@@ -47,6 +47,13 @@ CATEGORY: Anti-patterns
 -§skills/prompt-assistant/SKILL.md§always ask§forbids blanket always-ask (violates quick mode)
 -§skills/prompt-assistant/SKILL.md§(corporate-speak|professionalize)§does not recommend corporate-izing the user's voice
 
+CATEGORY: Quality Bar v2
++§skills/prompt-assistant/SKILL.md§(Refined \(deep mode\)|Deep mode example|Example \(deep)§includes a deep-mode example
++§skills/prompt-assistant/SKILL.md§(very thin|minimal signal|almost no signal|too vague)§defines fallback for thin input
++§skills/prompt-assistant/SKILL.md§(leave.{1,20}empty|leave.{1,20}blank|empty section)§explicit policy on empty sections
++§skills/prompt-assistant/SKILL.md§(Quick mode —|Deep mode —|Mode:)§shows concrete mode-echo phrasing
++§skills/prompt-assistant/SKILL.md§@[a-zA-Z]§references file-attachment syntax (@ prefix)
+
 CATEGORY: User Taste
 +§skills/prompt-assistant/SKILL.md§work on this repo§recognizes user's actual invocation pattern 'work on this repo'
 +§skills/prompt-assistant/SKILL.md§brainstorm for§recognizes 'brainstorm for X feature' phrasing

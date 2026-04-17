@@ -25,7 +25,11 @@ Do NOT activate for:
 
 **Deep mode**: Ask 2-4 targeted clarifying questions first, then rewrite. Use when the raw prompt is missing a critical dimension: no stated goal, no audience, no success criterion, no stack constraints. Ask only what cannot be inferred.
 
-Pick quick unless at least one critical dimension is missing. Announce the mode you chose in one sentence before acting.
+Pick quick unless at least one critical dimension is missing. Announce the mode you chose in one sentence before acting — e.g., "Quick mode — refining now." or "Deep mode — need a few details first."
+
+If the raw input is very thin (minimal signal, one vague sentence, no clear feature), force deep mode. Do not try to refine almost-no-signal input in quick mode.
+
+If the user references files with `@path/to/file` syntax, capture those references verbatim in the Context section.
 
 ## Repo Awareness
 
@@ -99,3 +103,18 @@ Keep it small.
 ```
 
 Ready to explore — shall I proceed, or do you want to edit this first?
+
+### Refined (deep mode)
+
+Raw input:
+> work on this repo and brainstorm for a notifications feature
+
+Mode: Deep mode — need a few details first.
+
+Before refining, answer:
+1. Who receives the notifications — end users, developers, or system operators?
+2. Channels — in-app, email, push, all of the above?
+3. Triggered by what events?
+4. Success criterion — what does "working notifications" mean to you?
+
+Once you answer, the refined prompt follows the same template as the quick-mode example above.

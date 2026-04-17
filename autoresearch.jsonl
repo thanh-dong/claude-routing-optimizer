@@ -1,2 +1,3 @@
 {"run":0,"commit":"be3d549","metrics":{"accuracy":83,"pass":30,"fail":6,"total":36,"word_count":702},"status":"baseline","description":"initial scaffold","timestamp":1776419679}
 {"run":1,"commit":"224dc7d","metrics":{"accuracy":100,"pass":36,"fail":0,"total":36,"word_count":765},"status":"keep","description":"add Invocation Patterns section, tighten length rule","timestamp":1776419727}
+{"run":2,"commit":"7e3349c","metrics":{"accuracy":100,"pass":36,"fail":0,"total":36,"word_count":733},"status":"keep","description":"merge Invocation Patterns into Repo Awareness","timestamp":1776419773}
