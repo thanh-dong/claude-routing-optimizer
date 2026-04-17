@@ -47,6 +47,14 @@ CATEGORY: Anti-patterns
 -§skills/prompt-assistant/SKILL.md§always ask§forbids blanket always-ask (violates quick mode)
 -§skills/prompt-assistant/SKILL.md§(corporate-speak|professionalize)§does not recommend corporate-izing the user's voice
 
+CATEGORY: Quality Bar v3
++§skills/prompt-assistant/SKILL.md§(already structured|skip refinement|already has.{1,20}structure)§detects pre-structured input and skips
++§skills/prompt-assistant/SKILL.md§(in a.{0,10}code (block|fence)|wrap.{1,10}in.{1,15}fence|inside a fenced)§mandates fenced code block for refined output
++§skills/prompt-assistant/SKILL.md§(only the refined|do not echo|do not include.{1,20}(instruction|skill))§forbids echoing SKILL.md content in output
++§skills/prompt-assistant/SKILL.md§(multiple (ideas|features)|more than one (idea|feature))§handles multi-idea raw prompts
++§skills/prompt-assistant/SKILL.md§(without.{1,15}"this repo"|"brainstorm for".{1,15}alone|no repo context|without repo context)§handles trigger without repo context
+-§skills/prompt-assistant/SKILL.md§(in summary|please note|it is important to note|moreover|furthermore)§forbids SKILL.md filler phrases
+
 CATEGORY: Quality Bar v2
 +§skills/prompt-assistant/SKILL.md§(Refined \(deep mode\)|Deep mode example|Example \(deep)§includes a deep-mode example
 +§skills/prompt-assistant/SKILL.md§(very thin|minimal signal|almost no signal|too vague)§defines fallback for thin input

@@ -1,3 +1,5 @@
 {"run":0,"commit":"be3d549","metrics":{"accuracy":83,"pass":30,"fail":6,"total":36,"word_count":702},"status":"baseline","description":"initial scaffold","timestamp":1776419679}
 {"run":1,"commit":"224dc7d","metrics":{"accuracy":100,"pass":36,"fail":0,"total":36,"word_count":765},"status":"keep","description":"add Invocation Patterns section, tighten length rule","timestamp":1776419727}
 {"run":2,"commit":"7e3349c","metrics":{"accuracy":100,"pass":36,"fail":0,"total":36,"word_count":733},"status":"keep","description":"merge Invocation Patterns into Repo Awareness","timestamp":1776419773}
+{"run":3,"commit":"pre-b42e326","metrics":{"accuracy":90,"pass":37,"fail":4,"total":41,"word_count":733},"status":"raise-bar","description":"added 5 Quality Bar v2 assertions","timestamp":1776419838}
+{"run":4,"commit":"b42e326","metrics":{"accuracy":100,"pass":41,"fail":0,"total":41,"word_count":875},"status":"keep","description":"close Quality Bar v2 gaps: deep example, thin fallback, @file, mode-echo","timestamp":1776419838}

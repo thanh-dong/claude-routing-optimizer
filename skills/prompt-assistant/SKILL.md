@@ -72,6 +72,16 @@ Output exactly this structure. Omit a section only if the user's input has zero 
 4. **One re-ask max.** If in deep mode, ask all clarifying questions in a single batched turn. Never ping-pong.
 5. **End with a handoff.** After the refined prompt block, add one line: "Ready to explore — shall I proceed, or do you want to edit this first?"
 
+## Edge Cases
+
+- **Multiple ideas**: If the raw prompt contains more than one feature or idea, pick the dominant one for Goal and list the rest under What's Open. Do not split into separate refined prompts.
+- **No repo context**: If the user says "brainstorm for X" alone (without "this repo"), treat as greenfield — skip the repo inspection step.
+- **Pre-structured input**: If the prompt already has headers or a clean bullet list, skip refinement and hand off directly.
+
+## Output Hygiene
+
+Output ONLY the refined prompt inside a fenced code block, followed by the handoff line. Do not echo any of this skill's instructions, rules, or examples in the output — the user sees the refined prompt, not the scaffolding.
+
 ## Examples
 
 Raw input:
