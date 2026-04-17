@@ -27,6 +27,12 @@ Do NOT activate for:
 
 Pick quick unless at least one critical dimension is missing. Announce the mode you chose in one sentence before acting.
 
+## Invocation Patterns
+
+The user typically opens with "work on this repo and brainstorm for X feature" or "brainstorm for X". When this phrasing appears:
+- The feature becomes the Goal.
+- "this repo" is a mandatory signal — inspect the repo state (top-level layout, stack, anything touching the feature) before refining.
+
 ## Repo Awareness
 
 Before refining, check the current working directory:
@@ -62,7 +68,7 @@ Output exactly this structure. Omit a section only if the user's input has zero 
 ## Rules
 
 1. **Preserve the user's voice.** If they wrote "I wanna build a tiny CLI that…", keep "tiny" and "CLI". Do not corporate-ify.
-2. **Do not expand.** Refined prompt should be equal or shorter in token count than the raw input. Structure is the value, not verbosity.
+2. **Do not expand.** Refined prompt should be equal or shorter in token count than the raw input. Keep sections brief — 1-2 sentences each. No filler, no padding. Structure is the value, not verbosity.
 3. **Do not invent requirements.** If the user did not say "must be in Rust", do not write that. Leave What's Open empty rather than fabricating.
 4. **One re-ask max.** If in deep mode, ask all clarifying questions in a single batched turn. Never ping-pong.
 5. **End with a handoff.** After the refined prompt block, add one line: "Ready to explore — shall I proceed, or do you want to edit this first?"
