@@ -27,17 +27,12 @@ Do NOT activate for:
 
 Pick quick unless at least one critical dimension is missing. Announce the mode you chose in one sentence before acting.
 
-## Invocation Patterns
-
-The user typically opens with "work on this repo and brainstorm for X feature" or "brainstorm for X". When this phrasing appears:
-- The feature becomes the Goal.
-- "this repo" is a mandatory signal — inspect the repo state (top-level layout, stack, anything touching the feature) before refining.
-
 ## Repo Awareness
 
-Before refining, check the current working directory:
-- If it's a git repo with existing code — the refined prompt must include "Existing codebase: <stack detected>" and reference specific files/areas the idea touches.
-- If it's empty or greenfield — the refined prompt must include "Greenfield — no existing code" and capture stack preferences if the user stated any.
+The user typically opens with "work on this repo and brainstorm for X feature" (or "brainstorm for X"). When this phrasing appears, the feature becomes the Goal, and "this repo" means: inspect the repo state (layout, stack, files touching the feature) before refining.
+
+- Git repo with existing code → refined prompt includes "Existing codebase: <stack>" and references specific files.
+- Greenfield / empty → refined prompt includes "Greenfield — no existing code" and captures any stated stack preferences.
 
 Never invent a stack the user did not mention.
 
