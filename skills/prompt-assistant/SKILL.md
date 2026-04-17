@@ -5,8 +5,6 @@ description: Use when the user types a long unstructured brainstorming prompt an
 
 # Prompt Assistant
 
-Refines a raw brainstorming prompt into a structured prompt Claude can act on cleanly.
-
 ## When to Use
 
 Activate when ALL of these hold:
@@ -37,8 +35,6 @@ The user typically opens with "work on this repo and brainstorm for X feature" (
 
 - Git repo with existing code → refined prompt includes "Existing codebase: <stack>" and references specific files.
 - Greenfield / empty → refined prompt includes "Greenfield — no existing code" and captures any stated stack preferences.
-
-Never invent a stack the user did not mention.
 
 ## Refined Prompt Template
 
