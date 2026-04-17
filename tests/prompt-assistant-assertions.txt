@@ -1,0 +1,57 @@
+# prompt-assistant skill quality assertions
+# Format: type§filepath§regex§description
+#   + = SKILL.md MUST contain pattern
+#   - = SKILL.md MUST NOT contain pattern
+# CATEGORY: header groups subsequent assertions.
+
+CATEGORY: Frontmatter & Triggers
++§skills/prompt-assistant/SKILL.md§^name: prompt-assistant§has correct name
++§skills/prompt-assistant/SKILL.md§^description: Use when§description starts with 'Use when'
++§skills/prompt-assistant/SKILL.md§brainstorm§mentions brainstorm trigger
++§skills/prompt-assistant/SKILL.md§(idea|thinking about|let's explore)§mentions ideation trigger keywords
++§skills/prompt-assistant/SKILL.md§(goal|success criteria|constraint)§frontmatter/body references missing-dimension triggers
+
+CATEGORY: Modes
++§skills/prompt-assistant/SKILL.md§quick§mentions quick mode
++§skills/prompt-assistant/SKILL.md§deep§mentions deep mode
++§skills/prompt-assistant/SKILL.md§(one-shot|one shot|in one shot)§describes quick mode behavior
++§skills/prompt-assistant/SKILL.md§clarifying question§describes deep mode behavior
++§skills/prompt-assistant/SKILL.md§announce§tells Claude to announce the chosen mode
+
+CATEGORY: Output Structure
++§skills/prompt-assistant/SKILL.md§## Goal§template includes Goal section
++§skills/prompt-assistant/SKILL.md§## Context§template includes Context section
++§skills/prompt-assistant/SKILL.md§## (What's Known|Known)§template includes a 'known' section
++§skills/prompt-assistant/SKILL.md§## (What's Open|Open)§template includes an 'open/unknown' section
++§skills/prompt-assistant/SKILL.md§## Success Criteria§template includes Success Criteria section
++§skills/prompt-assistant/SKILL.md§## Constraints§template includes Constraints section
+
+CATEGORY: Repo Awareness
++§skills/prompt-assistant/SKILL.md§(git repo|existing code|greenfield)§distinguishes existing repo vs greenfield
++§skills/prompt-assistant/SKILL.md§stack§references stack detection/preference
+
+CATEGORY: Token Efficiency & Voice
++§skills/prompt-assistant/SKILL.md§preserve.{1,30}voice§explicit rule to preserve user voice
++§skills/prompt-assistant/SKILL.md§(do not expand|equal or shorter|not.{1,20}verbos)§rule against token bloat
++§skills/prompt-assistant/SKILL.md§(do not invent|never.{1,20}fabricate|not invent requirements)§rule against inventing requirements
+
+CATEGORY: Examples & Handoff
++§skills/prompt-assistant/SKILL.md§Raw input§includes at least one before/after example
++§skills/prompt-assistant/SKILL.md§```§uses code fences to show refined output format
++§skills/prompt-assistant/SKILL.md§(shall I proceed|ready to|handoff)§ends with explicit handoff line
+
+CATEGORY: Anti-patterns
+-§skills/prompt-assistant/SKILL.md§TODO§no unfinished TODO markers
+-§skills/prompt-assistant/SKILL.md§\bFIXME\b§no FIXME markers
+-§skills/prompt-assistant/SKILL.md§\blorem ipsum\b§no placeholder filler
+-§skills/prompt-assistant/SKILL.md§always ask§forbids blanket always-ask (violates quick mode)
+-§skills/prompt-assistant/SKILL.md§(corporate-speak|professionalize)§does not recommend corporate-izing the user's voice
+
+CATEGORY: User Taste
++§skills/prompt-assistant/SKILL.md§work on this repo§recognizes user's actual invocation pattern 'work on this repo'
++§skills/prompt-assistant/SKILL.md§brainstorm for§recognizes 'brainstorm for X feature' phrasing
++§skills/prompt-assistant/SKILL.md§(extract.{1,30}feature|feature.{1,30}as.{1,10}Goal|the feature becomes)§extracts 'X feature' as the Goal
++§skills/prompt-assistant/SKILL.md§(read.{1,20}repo|inspect.{1,20}repo|check.{1,20}repo|repo state)§when user says 'this repo', skill must inspect repo state
++§skills/prompt-assistant/SKILL.md§(1-2 sentences|one to two sentences|keep sections (brief|short)|brief per section)§efficiency rule: keep each section brief
++§skills/prompt-assistant/SKILL.md§(don't waste|no filler|no padding|avoid filler)§explicit no-filler rule matching user's 'don't waste too much'
+-§skills/prompt-assistant/SKILL.md§(robust|seamlessly integrate|best-in-class|cutting-edge)§avoids marketing-adjective filler in skill guidance itself
