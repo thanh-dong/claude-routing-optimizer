@@ -21,6 +21,8 @@ alwaysApply: true
 - If you write 200 lines and it could be 50, rewrite it.
 - Self-check: "Would a senior engineer say this is overcomplicated?" If yes, simplify.
 
+<important if="you are editing existing code, removing code, or your change makes prior imports/variables unused">
+
 ## 3. Surgical Changes
 
 When editing existing code:
@@ -35,6 +37,10 @@ When your changes create orphans:
 
 The test: every changed line should trace directly to the user's request.
 
+</important>
+
+<important if="you are starting a multi-step task, or about to declare a task done">
+
 ## 4. Goal-Driven Execution
 
 Transform tasks into verifiable goals before starting:
@@ -48,3 +54,5 @@ For multi-step tasks, state a brief plan:
 2. [Step] -> verify: [check]
 ```
 Loop until verified — don't declare success without evidence.
+
+</important>

@@ -122,6 +122,21 @@ bash tests/bench-skill.sh     # 50 assertions — SKILL.md effectiveness per pha
 
 Run after any change to ensure nothing regressed.
 
+### Behavioral adherence eval (exploratory)
+
+`tests/bench-adherence.sh` A/B-tests whether wrapping situational rules in
+`<important if="...">` XML blocks (technique from humanlayer/improve-claude-md)
+improves instruction adherence. Toggles `rules/*.md` between bare and wrapped
+state, runs scenarios from `tests/adherence-scenarios.tsv` through `claude -p`,
+and grades responses with regex.
+
+Results are per-run artifacts (ignored by git). Initial run (N=9, single trial)
+produced a null result — bare and wrapped scored equally on the regex grader.
+Qualitative inspection showed wrapped responses were more literal to rule text
+but not measurably better. The harness is kept as scaffolding for richer
+evaluations (larger N, judge-LLM grading, per-project CLAUDE.md files where
+the technique's target — noisy mixed-content — actually applies).
+
 ## License
 
 MIT

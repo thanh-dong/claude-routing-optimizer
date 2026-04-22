@@ -21,4 +21,8 @@ alwaysApply: true
 
 5. **Scope-match effort**: 5-line change = one tool. Workflow chains are for substantial work only.
 
+<important if="you are about to spawn an agent, pick a model tier, or dispatch to a subagent">
+
 6. **Model routing**: Architecture/planning -> Opus. Implementation/review -> Sonnet. Mechanical tasks -> never Opus.
+
+</important>

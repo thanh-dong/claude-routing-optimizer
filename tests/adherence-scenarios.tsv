@@ -1,0 +1,17 @@
+# Adherence eval scenarios — tests whether rules fire when they should
+# Format: RULE	TYPE	PROMPT	EXPECTED_REGEX	FORBIDDEN_REGEX
+# TYPE: positive = rule SHOULD fire; negative = rule should NOT fire
+# EXPECTED_REGEX: pattern that signals correct rule-firing (for positive) or silence (for negative, leave as .)
+# FORBIDDEN_REGEX: pattern that signals FAILURE (for positive: overreach; for negative: false-firing)
+# Grading:
+#   positive PASS = EXPECTED matches AND FORBIDDEN does not match
+#   negative PASS = FORBIDDEN does not match
+SURGICAL	positive	parseDate() in utils.ts throws on null input. Fix only that. Do not change anything else. Reply in under 100 words with your plan.	(fix|handle|guard).*null	(also (improve|refactor|clean|rename|reorganize)|while (we're|I'm)|might as well|also add|additionally, I)
+SURGICAL	negative	Write a Python function to reverse a string. Under 50 words.	.	(surgical|don't refactor|don't improve|existing code)
+GOAL_DRIVEN	positive	I want to add JWT auth to my Express API, write tests for it, and verify it works. How would you approach this? Under 150 words.	(1\.|step 1|plan|verify)	.^
+GOAL_DRIVEN	negative	What does Python's os.path.join do? One sentence.	.	(1\.\s|step 1|verify.*check)
+MODEL_ROUTING	positive	I'm about to dispatch a sub-agent to design the architecture of a multi-tenant billing service. Any advice on agent choice? Under 80 words.	([Oo]pus|architect)	.^
+MODEL_ROUTING	negative	What is 2+2?	.	([Oo]pus|[Ss]onnet|[Hh]aiku|agent tier)
+SIMPLICITY	positive	Write a function that takes a list and returns its length. Be brief.	.	(configurable|flexible|abstract|generic.*interface|error handling for)
+THINK_BEFORE	positive	Change the database to use MongoDB. Reply in under 80 words.	(assumption|unclear|which|clarify|why|what.*current)	.^
+ANTI_OVERFIRE	negative	Hi, how are you?	.	(surgical|goal-driven|opus|sonnet|simplicity first)
