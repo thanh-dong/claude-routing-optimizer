@@ -62,6 +62,26 @@ Run this after installing or removing any plugin. It will:
 /optimize-routing --force      # Overwrite even if no changes
 ```
 
+## Tracking Upstream Adoptions
+
+This repo borrows from a few external sources (see `UPSTREAM.tsv`). The `/check-upstreams` skill detects when those sources change so adoptions don't silently drift.
+
+**Onboarding (5 steps):**
+
+1. `cat UPSTREAM.tsv` — see what's already tracked.
+2. Add your own adoptions: `/check-upstreams add <github-url-or-owner/repo:path>`
+   - Skill auto-fetches current SHA + date.
+   - Asks 2 questions: local path? adoption type (`file-port` / `technique` / `inspiration`)?
+   - `technique` and `inspiration` rows require a `notes` value — keeps the TSV focused on actionable refs.
+3. `/check-upstreams` — confirm everything's current. Reports drift, never auto-merges.
+4. On first successful run, the skill prints a copy-paste schedule suggestion:
+   ```
+   /schedule create "weekly Mon 9am" "/check-upstreams"
+   ```
+5. When drift is reported: `/check-upstreams --apply` fetches `file-port` upstreams into `/tmp/` and shows a diff vs local. Re-adoption is manual — local edits are usually intentional.
+
+Token cost: zero per session (slash commands lazy-load). Each check is `gh api` calls only — no LLM tokens unless drift is found and you act on it.
+
 ## What Gets Generated
 
 The output CLAUDE.md contains:
@@ -125,7 +145,7 @@ Run after any change to ensure nothing regressed.
 ### Behavioral adherence eval (exploratory)
 
 `tests/bench-adherence.sh` A/B-tests whether wrapping situational rules in
-`<important if="...">` XML blocks (technique from humanlayer/improve-claude-md)
+`<important if="...">` XML blocks (technique from [humanlayer/skills/plugins/improve-claude-md](https://github.com/humanlayer/skills/tree/main/plugins/improve-claude-md))
 improves instruction adherence. Toggles `rules/*.md` between bare and wrapped
 state, runs scenarios from `tests/adherence-scenarios.tsv` through `claude -p`,
 and grades responses with regex.
